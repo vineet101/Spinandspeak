@@ -21,7 +21,8 @@ export function HomeScreen({
   return (
     <main className="screen home-screen">
       <section className="home-name-block">
-        <button className="name-only-button" onClick={onSwitchProfile} aria-label="Switch player">{profile.name}</button>
+        <button className="text-button" onClick={onSwitchProfile} aria-label="Back to player selection">← Players</button>
+        <h1>{profile.name}</h1>
       </section>
 
       <section className="level-card">
