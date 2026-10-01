@@ -20,6 +20,8 @@ export function TopicScreen({
   busy: boolean;
   error?: string;
 }) {
+  const microphoneBlocked = Boolean(error && /not allowed|denied|permission|microphone|user agent|platform/i.test(error));
+
   return (
     <main className="screen topic-screen">
       <button className="text-button top-left" onClick={onBack} disabled={busy}>← Home</button>
@@ -36,7 +38,17 @@ export function TopicScreen({
       <p className="skip-rule">
         {skipUsed ? "This is your second topic, so this one must be accepted." : "You may skip once. The second topic must be accepted."}
       </p>
-      {error && <div className="error-banner" role="alert">{error}</div>}
+
+      {error && (
+        <div className="error-banner" role="alert">
+          {microphoneBlocked ? (
+            <>
+              <strong>Microphone access is blocked.</strong><br />
+              On iPhone, allow microphone access for this browser in Settings, then come back and tap <strong>Try microphone again</strong>. If it still fails, open this page in Safari and allow microphone access there.
+            </>
+          ) : error}
+        </div>
+      )}
 
       <div className="button-stack">
         {!skipUsed && (
@@ -45,7 +57,7 @@ export function TopicScreen({
           </button>
         )}
         <button className="primary-button wide" onClick={onAccept} disabled={busy}>
-          {busy ? "Getting microphone ready…" : "Accept topic"}
+          {busy ? "Getting microphone ready…" : microphoneBlocked ? "Try microphone again" : "Accept topic"}
         </button>
       </div>
 
