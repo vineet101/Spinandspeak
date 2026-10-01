@@ -1,0 +1,23 @@
+{
+  "name": "spin-and-speak",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev:web": "npm run dev -w @spin-and-speak/web",
+    "dev:api": "npm run dev -w @spin-and-speak/api",
+    "build:web": "npm run build -w @spin-and-speak/web",
+    "build:api": "npm run build -w @spin-and-speak/api",
+    "build": "npm run build:api && npm run build:web",
+    "start:web": "npm run start -w @spin-and-speak/web",
+    "start:api": "npm run start -w @spin-and-speak/api",
+    "test": "npm run test -w @spin-and-speak/scoring",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  }
+}
